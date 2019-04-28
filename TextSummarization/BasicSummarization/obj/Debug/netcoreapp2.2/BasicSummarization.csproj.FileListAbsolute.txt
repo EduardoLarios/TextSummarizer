@@ -19,3 +19,4 @@ F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\BasicSummarizat
 F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\BasicSummarization\obj\Debug\netcoreapp2.2\BasicSummarization.AssemblyInfo.cs
 F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\BasicSummarization\obj\Debug\netcoreapp2.2\BasicSummarization.dll
 F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\BasicSummarization\obj\Debug\netcoreapp2.2\BasicSummarization.pdb
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\BasicSummarization\obj\Debug\netcoreapp2.2\BasicSummarization.csprojAssemblyReference.cache
