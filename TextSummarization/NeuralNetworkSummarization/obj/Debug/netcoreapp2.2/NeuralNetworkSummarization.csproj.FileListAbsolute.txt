@@ -1,0 +1,11 @@
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\NeuralNetworkSummarization\bin\Debug\netcoreapp2.2\NeuralNetworkSummarization.deps.json
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\NeuralNetworkSummarization\bin\Debug\netcoreapp2.2\NeuralNetworkSummarization.runtimeconfig.json
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\NeuralNetworkSummarization\bin\Debug\netcoreapp2.2\NeuralNetworkSummarization.runtimeconfig.dev.json
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\NeuralNetworkSummarization\bin\Debug\netcoreapp2.2\NeuralNetworkSummarization.dll
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\NeuralNetworkSummarization\bin\Debug\netcoreapp2.2\NeuralNetworkSummarization.pdb
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\NeuralNetworkSummarization\obj\Debug\netcoreapp2.2\NeuralNetworkSummarization.csprojAssemblyReference.cache
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\NeuralNetworkSummarization\obj\Debug\netcoreapp2.2\NeuralNetworkSummarization.csproj.CoreCompileInputs.cache
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\NeuralNetworkSummarization\obj\Debug\netcoreapp2.2\NeuralNetworkSummarization.AssemblyInfoInputs.cache
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\NeuralNetworkSummarization\obj\Debug\netcoreapp2.2\NeuralNetworkSummarization.AssemblyInfo.cs
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\NeuralNetworkSummarization\obj\Debug\netcoreapp2.2\NeuralNetworkSummarization.dll
+F:\Eduardo\Documents\Code\C#\TextSummarization\TextSummarization\NeuralNetworkSummarization\obj\Debug\netcoreapp2.2\NeuralNetworkSummarization.pdb
