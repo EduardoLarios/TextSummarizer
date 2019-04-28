@@ -1,4 +1,6 @@
 ﻿using System;
+using IronPdf;
+using System.Drawing;
 
 namespace NeuralNetworkSummarization
 {
