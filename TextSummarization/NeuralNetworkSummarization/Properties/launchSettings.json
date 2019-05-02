@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NeuralNetworkSummarization": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Eduardo Larios\\Documents\\Code\\C#\\Summarizer\\TextSummarization\\NeuralNetworkSummarization"
+    }
+  }
+}
