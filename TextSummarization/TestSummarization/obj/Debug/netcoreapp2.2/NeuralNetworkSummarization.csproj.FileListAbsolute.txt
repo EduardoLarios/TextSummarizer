@@ -1,0 +1,11 @@
+/home/ale/Desktop/Ale/AI/TextSummarizer/TextSummarization/TestSummarization/bin/Debug/netcoreapp2.2/NeuralNetworkSummarization.deps.json
+/home/ale/Desktop/Ale/AI/TextSummarizer/TextSummarization/TestSummarization/bin/Debug/netcoreapp2.2/NeuralNetworkSummarization.runtimeconfig.json
+/home/ale/Desktop/Ale/AI/TextSummarizer/TextSummarization/TestSummarization/bin/Debug/netcoreapp2.2/NeuralNetworkSummarization.runtimeconfig.dev.json
+/home/ale/Desktop/Ale/AI/TextSummarizer/TextSummarization/TestSummarization/bin/Debug/netcoreapp2.2/NeuralNetworkSummarization.dll
+/home/ale/Desktop/Ale/AI/TextSummarizer/TextSummarization/TestSummarization/bin/Debug/netcoreapp2.2/NeuralNetworkSummarization.pdb
+/home/ale/Desktop/Ale/AI/TextSummarizer/TextSummarization/TestSummarization/obj/Debug/netcoreapp2.2/NeuralNetworkSummarization.csprojAssemblyReference.cache
+/home/ale/Desktop/Ale/AI/TextSummarizer/TextSummarization/TestSummarization/obj/Debug/netcoreapp2.2/NeuralNetworkSummarization.csproj.CoreCompileInputs.cache
+/home/ale/Desktop/Ale/AI/TextSummarizer/TextSummarization/TestSummarization/obj/Debug/netcoreapp2.2/NeuralNetworkSummarization.AssemblyInfoInputs.cache
+/home/ale/Desktop/Ale/AI/TextSummarizer/TextSummarization/TestSummarization/obj/Debug/netcoreapp2.2/NeuralNetworkSummarization.AssemblyInfo.cs
+/home/ale/Desktop/Ale/AI/TextSummarizer/TextSummarization/TestSummarization/obj/Debug/netcoreapp2.2/NeuralNetworkSummarization.dll
+/home/ale/Desktop/Ale/AI/TextSummarizer/TextSummarization/TestSummarization/obj/Debug/netcoreapp2.2/NeuralNetworkSummarization.pdb

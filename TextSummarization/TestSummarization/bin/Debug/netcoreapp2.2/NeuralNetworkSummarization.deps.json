@@ -1,0 +1,34 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v2.2",
+    "signature": "b9c332cd1db62267e301623f8058f97ebe09b55f"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v2.2": {
+      "NeuralNetworkSummarization/1.0.0": {
+        "dependencies": {
+          "Microsoft.DotNet.ILCompiler": "1.0.0-alpha-27703-01"
+        },
+        "runtime": {
+          "NeuralNetworkSummarization.dll": {}
+        }
+      },
+      "Microsoft.DotNet.ILCompiler/1.0.0-alpha-27703-01": {}
+    }
+  },
+  "libraries": {
+    "NeuralNetworkSummarization/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.DotNet.ILCompiler/1.0.0-alpha-27703-01": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-u9/K0um59CMLYU+mQISJiOtrWzhVUXau2aA99hiC0kdC4tP3aOMScIjyEpR46g2soI1oXHm+7Ftb4jtFOrYk9g==",
+      "path": "microsoft.dotnet.ilcompiler/1.0.0-alpha-27703-01",
+      "hashPath": "microsoft.dotnet.ilcompiler.1.0.0-alpha-27703-01.nupkg.sha512"
+    }
+  }
+}
