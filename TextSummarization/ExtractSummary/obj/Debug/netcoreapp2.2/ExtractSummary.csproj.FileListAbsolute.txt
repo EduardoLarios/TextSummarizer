@@ -1,0 +1,11 @@
+C:\Users\Eduardo Larios\Documents\Code\C#\Summarizer\TextSummarization\ExtractSummary\bin\Debug\netcoreapp2.2\ExtractSummary.deps.json
+C:\Users\Eduardo Larios\Documents\Code\C#\Summarizer\TextSummarization\ExtractSummary\bin\Debug\netcoreapp2.2\ExtractSummary.runtimeconfig.json
+C:\Users\Eduardo Larios\Documents\Code\C#\Summarizer\TextSummarization\ExtractSummary\bin\Debug\netcoreapp2.2\ExtractSummary.runtimeconfig.dev.json
+C:\Users\Eduardo Larios\Documents\Code\C#\Summarizer\TextSummarization\ExtractSummary\bin\Debug\netcoreapp2.2\ExtractSummary.dll
+C:\Users\Eduardo Larios\Documents\Code\C#\Summarizer\TextSummarization\ExtractSummary\bin\Debug\netcoreapp2.2\ExtractSummary.pdb
+C:\Users\Eduardo Larios\Documents\Code\C#\Summarizer\TextSummarization\ExtractSummary\obj\Debug\netcoreapp2.2\ExtractSummary.csprojAssemblyReference.cache
+C:\Users\Eduardo Larios\Documents\Code\C#\Summarizer\TextSummarization\ExtractSummary\obj\Debug\netcoreapp2.2\ExtractSummary.csproj.CoreCompileInputs.cache
+C:\Users\Eduardo Larios\Documents\Code\C#\Summarizer\TextSummarization\ExtractSummary\obj\Debug\netcoreapp2.2\ExtractSummary.AssemblyInfoInputs.cache
+C:\Users\Eduardo Larios\Documents\Code\C#\Summarizer\TextSummarization\ExtractSummary\obj\Debug\netcoreapp2.2\ExtractSummary.AssemblyInfo.cs
+C:\Users\Eduardo Larios\Documents\Code\C#\Summarizer\TextSummarization\ExtractSummary\obj\Debug\netcoreapp2.2\ExtractSummary.dll
+C:\Users\Eduardo Larios\Documents\Code\C#\Summarizer\TextSummarization\ExtractSummary\obj\Debug\netcoreapp2.2\ExtractSummary.pdb

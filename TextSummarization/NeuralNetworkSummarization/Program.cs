@@ -49,10 +49,6 @@ namespace NeuralNetworkSummarization
                 F1.Add(relative);
             }
 
-            // foreach (var item in F1)
-            // {
-            //     Console.WriteLine(item);
-            // }
             return F1;
         }
 
@@ -146,10 +142,19 @@ namespace NeuralNetworkSummarization
             return result.Success;
         }
 
-        static double ExtractFeature6(string sentence)
+        static int ExtractFeature6(string sentence, IEnumerable<string> top50Words)
         {
-            var howManyDigits = sentence.Count(c => char.IsNumber(c));
-            return (double) howManyDigits / sentence.Length;
+            var count = 0;
+            var words = sentence.Split(' ');
+            foreach (var word in words)
+            {
+                foreach (var important in top50Words)
+                {
+                    if (word.Equals(important)) count++;
+                }
+            }
+
+            return count;
         }
 
         static double ExtractFeature7(IEnumerable<string> text, string sentence)
@@ -172,113 +177,152 @@ namespace NeuralNetworkSummarization
 
             return result;
         }
-        static void Main(string[] args)
+        static void Main( )
         {
-            string filePath = "Articles/001.txt";
-            var text = File.ReadAllText(filePath).ToLower( );
+            // Load all articles and all summaries
+            var allArticles = Directory.GetFiles("Articles");
+            var allSummaries = Directory.GetFiles("Summaries");
 
-            string summaryPath = "Summaries/001.txt";
-            var summary = File.ReadAllText(summaryPath).ToLower( ).Split('.');
-
-            // 1. Trim characters from leading or trailing sentences
-            // 2. Split the text as sentences, based on periods or line-jumps
-            // 3 Skip title and get all non-empty lines
-            // 4. Trim all trailing and leading whitespace from each sentence
-            // 5. Get title from article
-            var trimChars = new [] { ',', '"', '\'', ' ' };
-            var sentences = text.Split(new char[] { '.', '\n' });
-            var notEmpty = sentences.Skip(1).Where(s => s != string.Empty);
-            var sentenceNoWhiteSpace = notEmpty.Select(s => s.Trim(trimChars));
-            var title = sentences.First( );
-
-            // Clean up Text
+            // Load stopwords to clean up the article
             string stopWordsPath = "Assets/stopwords-english.txt";
             var stopWords = File.ReadAllText(stopWordsPath);
+            var current = 0;
 
-            // Cleaned up sentences, doesn't include stopwords or special characters
-            var cleanedUpSentences = new List<string>( );
-            foreach (var sentence in sentenceNoWhiteSpace)
+            var allArticleWords = new List<string>( );
+            Console.WriteLine("Starting...");
+            Console.WriteLine($"Processing {allArticles.Length} articles");
+
+            Console.WriteLine("Getting important words...");
+            // Gets all words from all articles
+            foreach (var article in allArticles)
             {
-                var tempSentence = new List<string>( );
-                var str = sentence.Split(' ').Select(s => s.Trim(trimChars));
-                foreach (var word in str)
+                var text = File.ReadAllText(article).ToLower( );
+                var trimChars = new [] { ',', '"', '\'', ' ' };
+                var sentences = text.Split(new char[] { '.', '\n' });
+                var notEmpty = sentences.Skip(1).Where(s => s != string.Empty);
+                var sentenceNoWhiteSpace = notEmpty.Select(s => s.Trim(trimChars));
+
+                // Cleaned up sentences, doesn't include stopwords or special characters
+                var cleanedUpSentences = new List<string>( );
+                foreach (var sentence in sentenceNoWhiteSpace)
                 {
-                    var contains = stopWords.ContainsWord(word);
-                    if (!contains) tempSentence.Add(word);
+                    var tempSentence = new List<string>( );
+                    var str = sentence.Split(' ').Select(s => s.Trim(trimChars));
+                    foreach (var word in str)
+                    {
+                        var contains = stopWords.ContainsWord(word);
+                        if (!contains) tempSentence.Add(word);
+                    }
+                    cleanedUpSentences.Add(string.Join(' ', tempSentence));
                 }
-                cleanedUpSentences.Add(string.Join(' ', tempSentence));
+
+                // Break up the text into words and remove stopwords and special characters
+                var cleanedWordsInText = cleanedUpSentences.SelectMany(s => s.Split(' '));
+                cleanedWordsInText = cleanedWordsInText.Where(word => word != "-" && word != "");
+                allArticleWords.AddRange(cleanedWordsInText);
             }
 
-            // Break up the text into words and remove stopwords and special characters
-            var cleanedWordsInText = cleanedUpSentences.SelectMany(s => s.Split(' '));
-
-            Console.WriteLine( );
-            var F1 = ExtractFeature1(sentenceNoWhiteSpace, title);
-            var F2 = ExtractFeature2(cleanedUpSentences);
-            var F3 = new List<int>( );
-            foreach (var sentence in cleanedUpSentences)
+            var importantWords = new Dictionary<string, int>( );
+            foreach (var word in allArticleWords)
             {
-                // This has to receive all words in the text
-                F3.Add(ExtractFeature3(cleanedWordsInText, sentence));
+                if (!importantWords.ContainsKey(word))
+                {
+                    importantWords.Add(word, 1);
+                }
+                else
+                {
+                    ++importantWords[word];
+                }
             }
 
-            var F4 = new List<int>( );
-            foreach (var sentence in cleanedUpSentences)
+            // Gets all top 50 important words per topic
+            var orderedImportantWords = from entry in importantWords orderby entry.Value descending select entry;
+            var top50Words = orderedImportantWords.Take(50).Select(e => e.Key);
+
+            Console.WriteLine("Generating datasets...");
+            // Generates features for ARFF dataset
+            foreach (var article in allArticles)
             {
-                F4.Add(ExtractFeature4(sentence));
+                string filePath = article;
+                var text = File.ReadAllText(filePath).ToLower( );
+
+                string summaryPath = allSummaries[current];
+                var summary = File.ReadAllText(summaryPath).ToLower( ).Split('.');
+
+                // 1. Trim characters from leading or trailing sentences
+                // 2. Split the text as sentences, based on periods or line-jumps
+                // 3 Skip title and get all non-empty lines
+                // 4. Trim all trailing and leading whitespace from each sentence
+                // 5. Get title from article
+                var trimChars = new [] { ',', '"', '\'', ' ' };
+                var sentences = text.Split(new char[] { '.', '\n' });
+                var notEmpty = sentences.Skip(1).Where(s => s != string.Empty);
+                var sentenceNoWhiteSpace = notEmpty.Select(s => s.Trim(trimChars));
+                var title = sentences.First( );
+
+                // Cleaned up sentences, doesn't include stopwords or special characters
+                var cleanedUpSentences = new List<string>( );
+                foreach (var sentence in sentenceNoWhiteSpace)
+                {
+                    var tempSentence = new List<string>( );
+                    var str = sentence.Split(' ').Select(s => s.Trim(trimChars));
+                    foreach (var word in str)
+                    {
+                        var contains = stopWords.ContainsWord(word);
+                        if (!contains) tempSentence.Add(word);
+                    }
+                    cleanedUpSentences.Add(string.Join(' ', tempSentence));
+                }
+
+                // Break up the text into words and remove stopwords and special characters
+                var cleanedWordsInText = cleanedUpSentences.SelectMany(s => s.Split(' '));
+                var F1 = ExtractFeature1(sentenceNoWhiteSpace, title);
+                var F2 = ExtractFeature2(cleanedUpSentences);
+                var F3 = new List<int>( );
+                foreach (var sentence in cleanedUpSentences)
+                {
+                    // This has to receive all words in the text
+                    F3.Add(ExtractFeature3(cleanedWordsInText, sentence));
+                }
+
+                var F4 = new List<int>( );
+                foreach (var sentence in cleanedUpSentences)
+                {
+                    F4.Add(ExtractFeature4(sentence));
+                }
+
+                var F5 = new List<bool>( );
+                foreach (var sentence in cleanedUpSentences)
+                {
+                    F5.Add(ExtractFeature5(sentence));
+                }
+
+                var F6 = new List<double>( );
+                foreach (var sentence in cleanedUpSentences)
+                {
+                    F6.Add(ExtractFeature6(sentence, top50Words));
+                }
+
+                var F7 = new List<double>( );
+                foreach (var sentence in cleanedUpSentences)
+                {
+                    F7.Add(ExtractFeature7(cleanedUpSentences, sentence));
+                }
+
+                var Resultados = IsInSummary(sentenceNoWhiteSpace, summary).ToList( );
+
+                var lines = new List<string>( );
+
+                for (int i = 0; i < F1.Count; i++)
+                {
+                    lines.Add($"{F1[i]},{F2[i]},{F3[i]},{F4[i]},{F5[i]},{F6[i]},{F7[i]},{Resultados[i]}");
+                }
+
+                File.WriteAllLines($"result{current}.arff", lines);
+                ++current;
             }
 
-            var F5 = new List<bool>( );
-            foreach (var sentence in cleanedUpSentences)
-            {
-                F5.Add(ExtractFeature5(sentence));
-            }
-
-            var F6 = new List<double>( );
-            foreach (var sentence in cleanedUpSentences)
-            {
-                F6.Add(ExtractFeature6(sentence));
-            }
-
-            var F7 = new List<double>( );
-            foreach (var sentence in cleanedUpSentences)
-            {
-                F7.Add(ExtractFeature7(cleanedUpSentences, sentence));
-            }
-
-            var Resultados = IsInSummary(sentenceNoWhiteSpace, summary).ToList( );
-
-            var lines = new List<string>( );
-
-            var name = "@RELATION article\n";
-            var F1N = "@ATTRIBUTE F1 REAL";
-            var F2N = "@ATTRIBUTE F2 REAL";
-            var F3N = "@ATTRIBUTE F3 REAL";
-            var F4N = "@ATTRIBUTE F4 REAL";
-            var F5N = "@ATTRIBUTE F5 {True,False}";
-            var F6N = "@ATTRIBUTE F6 REAL";
-            var F7N = "@ATTRIBUTE F7 REAL";
-            var RESULT = "@ATTRIBUTE RESULT {True,False}\n";
-            var DATA = "@DATA";
-
-            lines.Add(name);
-            lines.Add(F1N);
-            lines.Add(F2N);
-            lines.Add(F3N);
-            lines.Add(F4N);
-            lines.Add(F5N);
-            lines.Add(F6N);
-            lines.Add(F7N);
-            lines.Add(RESULT);
-            lines.Add(DATA);
-
-            for (int i = 0; i < F1.Count; i++)
-            {
-                lines.Add($"{F1[i]},{F2[i]},{F3[i]},{F4[i]},{F5[i]},{F6[i]},{F7[i]},{Resultados[i]}");
-            }
-
-            File.WriteAllLines("result.arff", lines);
-            Console.WriteLine( );
+            Console.WriteLine("Finished processing all files");
 
         }
     }

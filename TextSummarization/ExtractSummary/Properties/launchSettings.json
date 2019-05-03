@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ExtractSummary": {
+      "commandName": "Project",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}
