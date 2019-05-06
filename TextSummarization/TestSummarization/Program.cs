@@ -196,12 +196,88 @@ namespace NeuralNetworkSummarization
             Console.WriteLine("Starting...");
             Console.WriteLine($"Processing {allArticles.Length} articles");
 
-            Console.WriteLine("Getting important words...");
+            Console.WriteLine("Choose the type of article.");
+            Console.WriteLine("1 - Bussiness");
+            Console.WriteLine("2 - Entertainment");
+            Console.WriteLine("3 - Politics");
+            Console.WriteLine("4 - Sport");
+            Console.WriteLine("5 - Tech");
             // Gets all words from all articles
-           
-            var select = Console.ReadLine();
-            var article = $"Articles/{select}";
             
+            Int32.TryParse(Console.ReadLine(), out int topic);
+            System.Console.WriteLine("Select One of these Files");
+
+            var select = "";
+            var article = "";
+            var TopicList = new List<string>();
+            var model = "";
+            var classifiers = "";
+            switch (topic)
+            {
+                case 1:
+                    TopicList = Directory.GetFiles("Articles/business").ToList();
+                    
+                    foreach (var item in TopicList)
+                    {
+                        System.Console.WriteLine(item);    
+                    }
+                    select = Console.ReadLine();
+                    article = $"Articles/business/{select}";
+                    model = "business.model";
+                    classifiers = "functions.MultilayerPerceptron";
+                    break;
+                case 2:
+                    TopicList = Directory.GetFiles("Articles/entertainment").ToList();
+                    
+                    foreach (var item in TopicList)
+                    {
+                        System.Console.WriteLine(item);    
+                    }
+                    select = Console.ReadLine();
+                    article = $"Articles/entertainment/{select}";
+                    model = "entertainment.model"; 
+                    classifiers = "functions.MultilayerPerceptron";               
+                    break;
+                case 3:
+                    TopicList = Directory.GetFiles("Articles/politics").ToList();
+                    
+                    foreach (var item in TopicList)
+                    {
+                        System.Console.WriteLine(item);    
+                    }
+                    select = Console.ReadLine();
+                    article = $"Articles/politics/{select}"; 
+                    model = "politics.model"; 
+                    classifiers = "functions.MultilayerPerceptron";
+                    break;
+                case 4:
+                    TopicList = Directory.GetFiles("Articles/sport").ToList();
+                    
+                    foreach (var item in TopicList)
+                    {
+                        System.Console.WriteLine(item);    
+                    }
+                    select = Console.ReadLine();
+                    article = $"Articles/sport/{select}"; 
+                    model = "sport.model";
+                    classifiers = "functions.MultilayerPerceptron"; 
+                    break;
+                case 5:
+                    TopicList = Directory.GetFiles("Articles/tech").ToList();
+                    
+                    foreach (var item in TopicList)
+                    {
+                        System.Console.WriteLine(Path.GetFileName(item));    
+                    }
+                    select = Console.ReadLine();
+                    article = $"Articles/tech/{select}";
+                    model = "tech.model";
+                    classifiers = "meta.RandomCommittee";
+                    break;
+            }
+            
+            
+            Console.WriteLine("Getting important words...");
             {
                 var text = File.ReadAllText(article).ToLower();
                 var trimChars = new [] { ',', '"', '\'', ' ' };
@@ -320,7 +396,20 @@ namespace NeuralNetworkSummarization
 
                 var training = new List<string>();
                 var testing = new List<string>();
+                var header = 
+            @"@RELATION article
 
+@ATTRIBUTE F1 REAL
+@ATTRIBUTE F2 REAL
+@ATTRIBUTE F3 REAL
+@ATTRIBUTE F4 REAL
+@ATTRIBUTE F5 {True,False}
+@ATTRIBUTE F6 REAL
+@ATTRIBUTE F7 REAL
+@ATTRIBUTE RESULT {True,False}
+
+@DATA";
+                testing.Add(header);
                 for (int i = 0; i < F1.Count; i++)
                 {
                     training.Add($"{F1[i]},{F2[i]},{F3[i]},{F4[i]},{F5[i]},{F6[i]},{F7[i]},{Resultados[i]}");
@@ -328,7 +417,7 @@ namespace NeuralNetworkSummarization
                 }
 
                 File.WriteAllLines($"real_{current}.arff", training);
-                File.WriteAllLines($"testing_{fileName}.arff", testing);
+                File.WriteAllLines($"testing.arff", testing);
                 ++current;
                 Console.WriteLine("Finished processing all files");
 
@@ -338,18 +427,22 @@ namespace NeuralNetworkSummarization
                 //     System.Console.WriteLine(item);
                 // }
                 System.Console.WriteLine("Click Enter To Continue");
+                var output = $"java weka.classifiers.{classifiers} -l {model} -p 0 -T testing.arff > prediction.txt".Bash();
+
                 var nothing = Console.ReadLine();
                 var pred = File.ReadAllText("prediction.txt");
                 var sentencespred = pred.Split('\n');
                 var ListSentenceNoWhiteSpace = sentenceNoWhiteSpace.ToList();
                 var OutputPrediction = new List<string>();
-                for (int i = 1; i < sentencespred.Length; i++)
+               
+                for (int i = 5; i < sentencespred.Length; i++)
                 {
+                    
                     if(sentencespred[i].Contains("True"))
                     {
                         System.Console.WriteLine("Sentence Number:  "+i);
-                        System.Console.WriteLine(ListSentenceNoWhiteSpace[i-1]);
-                        OutputPrediction.Add(ListSentenceNoWhiteSpace[i-1]+".");
+                        System.Console.WriteLine(ListSentenceNoWhiteSpace[i-5]);
+                        OutputPrediction.Add(ListSentenceNoWhiteSpace[i-5]+".");
                     }
                 }
                 File.WriteAllLines($"outputPrediction.txt", OutputPrediction);                   
